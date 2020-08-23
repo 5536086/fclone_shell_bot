@@ -10,6 +10,7 @@
 #=============================================================
 
 source /root/fclone_shell_bot/myfc_config.ini
+: > /root/fclone_shell_bot/log/fdedupe.log
 clear
 read -p "请输入要查重的链接==>" link
 if [ -z "$link" ] ; then
@@ -18,5 +19,5 @@ else
 link=${link#*id=};link=${link#*folders/};link=${link#*d/};link=${link%?usp*}
 fi
 echo -e "▣▣▣▣▣▣正在执行查重▣▣▣▣▣▣"
-fclone dedupe newest "$fclone_nameb":{$link} --fast-list --size-only --drive-use-trash=false --no-traverse --checkers=64 --transfers=128 -vp --log-level=DEBUG --log-file=/root/fclone_shell_bot/log/'fdedup.txt'
+fclone dedupe smallest "$fclone_nameb":{$link2} --fast-list --drive-use-trash=false --no-traverse --checkers="$fs_chercker" --transfers="$fs_transfer" -p --log-level=ERROR --log-file=/root/fclone_shell_bot/log/fdedupe.log --check-first
 echo "|▉▉▉▉▉▉▉▉▉▉▉▉|100%  查重完毕"
