@@ -10,6 +10,8 @@
 #=============================================================
 
 source /root/fclone_shell_bot/myfc_config.ini
+: > /root/fclone_shell_bot/log/fbcopy.log
+: > /root/fclone_shell_bot/log/fbsync.log
 
 clear
 echo -e " 选择你需要备份的盘
@@ -45,10 +47,7 @@ echo "不允许输入为空" && exit
 else
 link=${link#*id=};link=${link#*folders/};link=${link#*d/};link=${link%?usp*}
 fi
-echo -e "▣▣▣▣▣▣执行备份▣▣▣▣▣▣"
-fclone copy "$fclone_name":{$myid} "$fclone_name":{$link} --drive-server-side-across-configs --stats=1s --stats-one-line -P --checkers="$fb_chercker" --transfers="$fb_transfer" --drive-pacer-min-sleep="$fb_min_sleep"ms --drive-pacer-burst="$fb_BURST" --min-size "$fb_min_size"M --check-first --ignore-existing --log-level=ERROR --log-file=/root/fclone_shell_bot/log/fbcopy.log
-echo -e "|▉▉▉▉▉▉▉▉▉▉▉▉|100%  备份完毕"
 echo -e "▣▣▣▣▣▣执行同步▣▣▣▣▣▣"
-fclone sync "$fclone_name":{$myid} "$fclone_name":{$link} --drive-server-side-across-configs --drive-use-trash=false --stats=1s --stats-one-line -P --checkers="$fb_chercker" --transfers="$fb_transfer" --drive-pacer-min-sleep="$fb_min_sleep"ms --drive-pacer-burst="$fb_BURST" --min-size "$fb_min_size"M --check-first --log-level=ERROR --log-file=/root/fclone_shell_bot/log/fbsync.log
+fclone sync "$fclone_name1":{$myid} "$fclone_name1":{$link} --drive-server-side-across-configs --drive-use-trash=false --stats=1s --stats-one-line -P --checkers="$fb_chercker" --transfers="$fb_transfer" --drive-pacer-min-sleep="$fb_min_sleep"ms --drive-pacer-burst="$fb_BURST" --min-size "$fb_min_size"M --check-first --log-level=DEBUG --log-file=/root/fclone_shell_bot/log/fbsync.log
 echo -e "|▉▉▉▉▉▉▉▉▉▉▉▉|100%  同步完毕"
 exit
